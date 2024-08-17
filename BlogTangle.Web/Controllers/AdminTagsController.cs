@@ -34,7 +34,15 @@ namespace BlogTangle.Web.Controllers
             _db.Tags.Add(tag);
             _db.SaveChanges();
 
-            return View("Add");
+            return RedirectToAction("List");
+        }
+
+        [HttpGet]
+        public IActionResult List()
+        {
+            List<Tag> tags = _db.Tags.ToList();
+
+            return View(tags);
         }
     }
 
