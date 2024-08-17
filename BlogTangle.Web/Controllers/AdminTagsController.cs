@@ -44,6 +44,57 @@ namespace BlogTangle.Web.Controllers
 
             return View(tags);
         }
+
+        [HttpGet]
+        public IActionResult Edit(Guid id)
+        {
+            Tag tag = _db.Tags.FirstOrDefault(x => x.Id == id);
+
+            if(tag != null)
+            {
+                EditTagViewModel editTagViewModel = new EditTagViewModel
+                {
+                    Id = tag.Id,
+                    Name = tag.Name,
+                    DisplayName = tag.DisplayName
+                };
+
+                return View(editTagViewModel);
+            }
+
+            return View(null);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditTagViewModel editTagViewModel)
+        {
+            Tag tag = new Tag
+            {
+                Id = editTagViewModel.Id,
+                Name = editTagViewModel.Name,
+                DisplayName = editTagViewModel.DisplayName
+            };
+
+            Tag existingTag = _db.Tags.Find(tag.Id);
+
+            if(existingTag != null)
+            {
+                existingTag.Name = tag.Name;
+                existingTag.DisplayName = tag.DisplayName;
+
+                _db.SaveChanges();
+
+                return RedirectToAction("List", new { id = editTagViewModel.Id });
+            }
+
+            return RedirectToAction("Edit", new { id = editTagViewModel.Id });
+            
+        
+
+
+
+            
+        }
     }
 
 
