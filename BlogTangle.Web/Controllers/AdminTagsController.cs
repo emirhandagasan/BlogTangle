@@ -1,4 +1,5 @@
 ﻿using BlogTangle.Web.Data;
+using BlogTangle.Web.Interfaces;
 using BlogTangle.Web.Models.Domain;
 using BlogTangle.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,10 @@ namespace BlogTangle.Web.Controllers
     public class AdminTagsController : Controller
     {
 
-        private readonly ApplicationDbContext _db;
-        public AdminTagsController(ApplicationDbContext db)
+        private readonly ITagRepository _tagRepository;
+        public AdminTagsController(ITagRepository tagRepository)
         {
-            _db = db;
+            _tagRepository = tagRepository;
         }
 
         [HttpGet]
@@ -22,33 +23,31 @@ namespace BlogTangle.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddTagViewModel addTagViewModel)
+        public async Task<IActionResult> Add(AddTagViewModel addTagViewModel)
         {
-            // Mapping AddTagViewModel to Tag domain model
             Tag tag = new Tag
             {
                 Name = addTagViewModel.Name,
                 DisplayName = addTagViewModel.DisplayName
             };
 
-            _db.Tags.Add(tag);
-            _db.SaveChanges();
+            await _tagRepository.AddTagAsync(tag);
 
             return RedirectToAction("List");
         }
 
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
-            List<Tag> tags = _db.Tags.ToList();
+            var tags = await _tagRepository.GetAllTagsAsync();
 
             return View(tags);
         }
 
         [HttpGet]
-        public IActionResult Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            Tag tag = _db.Tags.FirstOrDefault(x => x.Id == id);
+            var tag = await _tagRepository.GetTagAsync(id);
 
             if(tag != null)
             {
@@ -66,7 +65,7 @@ namespace BlogTangle.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditTagViewModel editTagViewModel)
+        public async Task<IActionResult> Edit(EditTagViewModel editTagViewModel)
         {
             Tag tag = new Tag
             {
@@ -75,25 +74,17 @@ namespace BlogTangle.Web.Controllers
                 DisplayName = editTagViewModel.DisplayName
             };
 
-            Tag existingTag = _db.Tags.Find(tag.Id);
+            await _tagRepository.UpdateTagAsync(tag);
 
-            if(existingTag != null)
-            {
-                existingTag.Name = tag.Name;
-                existingTag.DisplayName = tag.DisplayName;
+            return RedirectToAction("List");   
+        }
 
-                _db.SaveChanges();
+        [HttpPost]
+        public async Task<IActionResult> Delete(EditTagViewModel editTagViewModel)
+        {
+            await _tagRepository.DeleteTagAsync(editTagViewModel.Id);
 
-                return RedirectToAction("List", new { id = editTagViewModel.Id });
-            }
-
-            return RedirectToAction("Edit", new { id = editTagViewModel.Id });
-            
-        
-
-
-
-            
+            return RedirectToAction("List");
         }
     }
 
