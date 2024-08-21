@@ -1,6 +1,8 @@
 ﻿using BlogTangle.Web.Data;
 using BlogTangle.Web.Interfaces;
 using BlogTangle.Web.Models.Domain;
+using BlogTangle.Web.Models.ViewModels;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogTangle.Web.Repositories
@@ -12,6 +14,7 @@ namespace BlogTangle.Web.Repositories
         {
             _db = db;
         }
+
         public async Task<int> AddPostAsync(BlogPost blogPost)
         {
             await _db.AddAsync(blogPost);
@@ -34,17 +37,35 @@ namespace BlogTangle.Web.Repositories
 
         public async Task<IEnumerable<BlogPost>> GetAllPostsAsync()
         {
-            return await _db.BlogPosts.ToListAsync();
+            return await _db.BlogPosts.Include(x => x.Tags).ToListAsync();
         }
 
         public async Task<BlogPost?> GetPostAsync(Guid id)
         {
-            return await _db.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
+            return await _db.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<int?> UpdatePostAsync(BlogPost blogPost)
+        public async Task<int?> UpdatePostAsync(BlogPost blogPost)
         {
-            throw new NotImplementedException();
+            var existingPost = await GetPostAsync(blogPost.Id);
+            
+            if(existingPost != null)
+            {
+                existingPost.Heading = blogPost.Heading;
+                existingPost.PageTitle = blogPost.PageTitle;
+                existingPost.Content = blogPost.Content;
+                existingPost.ShortDescription = blogPost.ShortDescription;
+                existingPost.FeaturedImageUrl = blogPost.FeaturedImageUrl;
+                existingPost.UrlHandle = blogPost.UrlHandle;
+                existingPost.PublishedDate = blogPost.PublishedDate;
+                existingPost.Author = blogPost.Author;
+                existingPost.Visible = blogPost.Visible;
+                existingPost.Tags = blogPost.Tags;
+
+                return await _db.SaveChangesAsync();
+            }
+
+            return null;
         }
     }
 }

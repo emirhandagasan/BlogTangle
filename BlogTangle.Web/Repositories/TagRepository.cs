@@ -13,7 +13,6 @@ namespace BlogTangle.Web.Repositories
             _db = db;
         }
 
-
         public async Task<int> AddTagAsync(Tag tag)
         {
             await _db.Tags.AddAsync(tag);
