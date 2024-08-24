@@ -1,6 +1,7 @@
 using BlogTangle.Web.Data;
 using BlogTangle.Web.Interfaces;
 using BlogTangle.Web.Repositories;
+using BlogTangle.Web.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 
