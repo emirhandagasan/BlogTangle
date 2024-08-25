@@ -40,6 +40,11 @@ namespace BlogTangle.Web.Repositories
             return await _db.BlogPosts.Include(x => x.Tags).ToListAsync();
         }
 
+        public async Task<BlogPost?> GetByUrlHandleAsync(string urlHandle)
+        {
+            return await _db.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.UrlHandle == urlHandle);
+        }
+
         public async Task<BlogPost?> GetPostAsync(Guid id)
         {
             return await _db.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == id);
