@@ -2,15 +2,19 @@
 using BlogTangle.Web.Models.Domain;
 using BlogTangle.Web.Models.ViewModels;
 using BlogTangle.Web.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogTangle.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminBlogPostsController : Controller
     {
         private readonly ITagRepository _tagRepository;
         private readonly IBlogPostRepository _blogPostRepository;
+
+
         public AdminBlogPostsController(ITagRepository tagRepository, IBlogPostRepository blogPostRepository)
         {
             _tagRepository = tagRepository;
@@ -31,6 +35,7 @@ namespace BlogTangle.Web.Controllers
 
             return View(addBlogPostViewModel);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Add(AddBlogPostViewModel addBlogPostViewModel)
@@ -69,6 +74,7 @@ namespace BlogTangle.Web.Controllers
             return RedirectToAction("List");
         }
 
+
         [HttpGet] 
         public async Task<IActionResult> List()
         {
@@ -76,6 +82,7 @@ namespace BlogTangle.Web.Controllers
 
             return View(blogPosts);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
@@ -110,6 +117,7 @@ namespace BlogTangle.Web.Controllers
 
             return View(null);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditBlogPostViewModel editBlogPostViewModel)
@@ -148,6 +156,7 @@ namespace BlogTangle.Web.Controllers
 
             return RedirectToAction("List");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(EditBlogPostViewModel editBlogPostViewModel)

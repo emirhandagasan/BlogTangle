@@ -2,25 +2,30 @@
 using BlogTangle.Web.Interfaces;
 using BlogTangle.Web.Models.Domain;
 using BlogTangle.Web.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogTangle.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminTagsController : Controller
     {
-
         private readonly ITagRepository _tagRepository;
+
+
         public AdminTagsController(ITagRepository tagRepository)
         {
             _tagRepository = tagRepository;
         }
+
 
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Add(AddTagViewModel addTagViewModel)
@@ -36,6 +41,7 @@ namespace BlogTangle.Web.Controllers
             return RedirectToAction("List");
         }
 
+
         [HttpGet]
         public async Task<IActionResult> List()
         {
@@ -43,6 +49,7 @@ namespace BlogTangle.Web.Controllers
 
             return View(tags);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
@@ -64,6 +71,7 @@ namespace BlogTangle.Web.Controllers
             return View(null);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Edit(EditTagViewModel editTagViewModel)
         {
@@ -78,6 +86,7 @@ namespace BlogTangle.Web.Controllers
 
             return RedirectToAction("List");   
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(EditTagViewModel editTagViewModel)
