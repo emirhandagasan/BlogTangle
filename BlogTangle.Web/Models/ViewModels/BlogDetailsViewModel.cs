@@ -1,6 +1,8 @@
-﻿namespace BlogTangle.Web.Models.Domain
+﻿using BlogTangle.Web.Models.Domain;
+
+namespace BlogTangle.Web.Models.ViewModels
 {
-    public class BlogPost
+    public class BlogDetailsViewModel
     {
         public Guid Id { get; set; }
         public string Heading { get; set; }
@@ -12,14 +14,9 @@
         public DateTime PublishedDate { get; set; }
         public string Author { get; set; }
         public bool Visible { get; set; }
-
-
         public ICollection<Tag> Tags { get; set; }
+        public string CommentDescription { get; set; }
 
-        public ICollection<BlogPostComment> Comments { get; set; }
-
-
-
-
+        public IEnumerable<BlogCommentViewModel> Comments { get; set; }
     }
 }
