@@ -163,15 +163,15 @@ namespace BlogTangle.Web.Migrations.AuthDb
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "72edffba-1297-4d66-bd83-5086c2509827", "72edffba-1297-4d66-bd83-5086c2509827", "SuperAdmin", "SuperAdmin" },
-                    { "7f3020dc-b045-4975-a7d1-6d513e9d9b08", "7f3020dc-b045-4975-a7d1-6d513e9d9b08", "Admin", "Admin" },
-                    { "f51922ae-cc0f-45b5-9a7e-c89f26efcba2", "f51922ae-cc0f-45b5-9a7e-c89f26efcba2", "User", "User" }
+                    { "72edffba-1297-4d66-bd83-5086c2509827", "72edffba-1297-4d66-bd83-5086c2509827", "SuperAdmin", "SUPERADMİN" },
+                    { "7f3020dc-b045-4975-a7d1-6d513e9d9b08", "7f3020dc-b045-4975-a7d1-6d513e9d9b08", "Admin", "ADMİN" },
+                    { "f51922ae-cc0f-45b5-9a7e-c89f26efcba2", "f51922ae-cc0f-45b5-9a7e-c89f26efcba2", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "c0c2470f-5c64-4bde-870f-dc99e3b838cc", 0, "5fd90471-6295-46f7-af78-bfb3c23de04f", "superadmn@blogtangle.com", false, false, null, "SUPERADMN@BLOGTANGLE.COM", "SUPERADMN@BLOGTANGLE.COM", "AQAAAAIAAYagAAAAEF9GNfzqtYPIZ4RYd9HRwf0nJvdxONf3Hf7ybEToX7vwesm7SHZjq/RF/maPx53RQg==", null, false, "1b4a118b-e6f3-4276-a277-03486cc30087", false, "superadmn@blogtangle.com" });
+                values: new object[] { "c0c2470f-5c64-4bde-870f-dc99e3b838cc", 0, "b75801fd-abba-4b52-b05c-483ab0418ff0", "superadmn@blogtangle.com", false, false, null, "SUPERADMN@BLOGTANGLE.COM", "SUPERADMN@BLOGTANGLE.COM", "AQAAAAIAAYagAAAAEN2ZBt5mFIwPMEl30bWEx+Y/KU1AjC8BpIY2/HkMqdQzyjaF6NfZmKwKMnUPPxaHfw==", null, false, "c88066ac-bc3f-430c-bd4a-a99423028ad3", false, "superadmn@blogtangle.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

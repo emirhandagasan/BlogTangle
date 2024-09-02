@@ -26,7 +26,7 @@ namespace BlogTangle.Web.Data
                 new IdentityRole
                 {
                     Name = "Admin",
-                    NormalizedName = "Admin",
+                    NormalizedName = "Admin".ToUpper(),
                     Id = adminRoleId,
                     ConcurrencyStamp = adminRoleId
                 },
@@ -34,7 +34,7 @@ namespace BlogTangle.Web.Data
                 new IdentityRole
                 {
                     Name = "SuperAdmin",
-                    NormalizedName = "SuperAdmin",
+                    NormalizedName = "SuperAdmin".ToUpper(),
                     Id = superAdminRoleId,
                     ConcurrencyStamp = superAdminRoleId
                 },
@@ -42,7 +42,7 @@ namespace BlogTangle.Web.Data
                 new IdentityRole
                 {
                     Name = "User",
-                    NormalizedName = "User",
+                    NormalizedName = "User".ToUpper(),
                     Id = userRoleId,
                     ConcurrencyStamp = userRoleId
                 }
