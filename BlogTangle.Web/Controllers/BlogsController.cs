@@ -35,12 +35,22 @@ namespace BlogTangle.Web.Controllers
 
             foreach(var blogComment in blogCommentsDomainModel)
             {
-                blogCommentsForView.Add(new BlogCommentViewModel
+                var commentedUserId = await _userManager.FindByIdAsync(blogComment.UserId.ToString());
+
+                if (commentedUserId != null)
                 {
-                    Description = blogComment.Description,
-                    DateAdded = blogComment.DateAdded,
-                    Username = (await _userManager.FindByIdAsync(blogComment.UserId.ToString())).UserName
-                });
+                    blogCommentsForView.Add(new BlogCommentViewModel
+                    {
+                        Description = blogComment.Description,
+                        DateAdded = blogComment.DateAdded,
+                        Username = commentedUserId.UserName
+                    });
+                }
+                else
+                {
+                    await _blogPostCommentRepository.DeleteComment(blogComment.Id);
+                }
+
             }
             
             

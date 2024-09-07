@@ -4,7 +4,7 @@ namespace BlogTangle.Web.Interfaces
 {
     public interface ITagRepository
     {
-        Task<IEnumerable<Tag>> GetAllTagsAsync();
+        Task<IEnumerable<Tag>> GetAllTagsAsync(string? searchQuery = null);
         Task<Tag?> GetTagAsync(Guid id);
         Task<int> AddTagAsync(Tag tag);
         Task<int?> UpdateTagAsync(Tag tag);

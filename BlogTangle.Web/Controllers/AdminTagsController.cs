@@ -43,9 +43,11 @@ namespace BlogTangle.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(string? searchQuery)
         {
-            var tags = await _tagRepository.GetAllTagsAsync();
+            ViewBag.SearchQuery = searchQuery;
+
+            var tags = await _tagRepository.GetAllTagsAsync(searchQuery);
 
             return View(tags);
         }

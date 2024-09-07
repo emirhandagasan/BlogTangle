@@ -33,9 +33,18 @@ namespace BlogTangle.Web.Repositories
             return null;
         }
 
-        public async Task<IEnumerable<Tag>> GetAllTagsAsync()
+        public async Task<IEnumerable<Tag>> GetAllTagsAsync(string? searchQuery)
         {
-            return await _db.Tags.ToListAsync();
+            var query = _db.Tags.AsQueryable();
+
+            //Filtering
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(x => x.Name.Contains(searchQuery) || x.DisplayName.Contains(searchQuery));
+            }
+
+
+            return await query.ToListAsync();
         }
 
         public async Task<Tag?> GetTagAsync(Guid id)
