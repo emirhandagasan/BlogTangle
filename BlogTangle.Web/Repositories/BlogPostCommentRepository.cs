@@ -21,17 +21,22 @@ namespace BlogTangle.Web.Repositories
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<int?> DeleteComment(Guid id)
+        public async Task<int?> DeleteCommentAsync(Guid id)
         {
-            var existingComment = await _db.BlogPostComments.FirstOrDefaultAsync(x => x.Id == id);
+            var existingComment = await GetCommentAsync(id);
 
-            if(existingComment != null)
+            if (existingComment != null)
             {
                 _db.Remove(existingComment);
                 return await _db.SaveChangesAsync();
             }
 
             return null;
+        }
+
+        public async Task<BlogPostComment?> GetCommentAsync(Guid id)
+        {
+            return await _db.BlogPostComments.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<BlogPostComment>> GetCommentsByBlogId(Guid blogPostId)

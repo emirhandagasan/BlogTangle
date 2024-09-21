@@ -1,6 +1,7 @@
 ﻿using BlogTangle.Web.Interfaces;
 using BlogTangle.Web.Models.Domain;
 using BlogTangle.Web.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +30,7 @@ namespace BlogTangle.Web.Controllers
         public async Task<IActionResult> Index(string urlHandle)
         {
             var blogPost = await _blogPostRepository.GetByUrlHandleAsync(urlHandle);
-
+            
             var blogCommentsDomainModel = await _blogPostCommentRepository.GetCommentsByBlogId(blogPost.Id);
             var blogCommentsForView = new List<BlogCommentViewModel>();
 
@@ -41,6 +42,7 @@ namespace BlogTangle.Web.Controllers
                 {
                     blogCommentsForView.Add(new BlogCommentViewModel
                     {
+                        Id = blogComment.Id,
                         Description = blogComment.Description,
                         DateAdded = blogComment.DateAdded,
                         Username = commentedUserId.UserName
@@ -48,7 +50,7 @@ namespace BlogTangle.Web.Controllers
                 }
                 else
                 {
-                    await _blogPostCommentRepository.DeleteComment(blogComment.Id);
+                    await _blogPostCommentRepository.DeleteCommentAsync(blogComment.Id);
                 }
 
             }
@@ -95,6 +97,21 @@ namespace BlogTangle.Web.Controllers
             }
 
             return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteComment(Guid id)
+        {
+            var comment = await _blogPostCommentRepository.GetCommentAsync(id);
+
+            if(comment != null)
+            {
+                await _blogPostCommentRepository.DeleteCommentAsync(id);
+            }
+
+            return RedirectToAction("Index", "Home");
+
         }
 
     }

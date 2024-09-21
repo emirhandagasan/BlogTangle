@@ -37,7 +37,7 @@ namespace BlogTangle.Web.Controllers
             };
 
             await _tagRepository.AddTagAsync(tag);
-
+            
             return RedirectToAction("List");
         }
 

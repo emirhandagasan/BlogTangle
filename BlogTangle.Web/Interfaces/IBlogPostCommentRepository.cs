@@ -6,6 +6,7 @@ namespace BlogTangle.Web.Interfaces
     {
         Task<int> AddCommentAsync(BlogPostComment blogPostComment);
         Task<IEnumerable<BlogPostComment>> GetCommentsByBlogId(Guid blogPostId);
-        Task<int?> DeleteComment(Guid id);
+        Task<BlogPostComment?> GetCommentAsync(Guid id);
+        Task<int?> DeleteCommentAsync(Guid id);
     }
 }
