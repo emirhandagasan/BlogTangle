@@ -54,7 +54,7 @@ namespace BlogTangle.Web.Controllers
 
             var identityResult = await _userManager.CreateAsync(identityUser, userListViewModel.Password);
 
-            if(identityResult != null)
+            if (identityResult != null)
             {
                 if (identityResult.Succeeded)
                 {
@@ -66,15 +66,13 @@ namespace BlogTangle.Web.Controllers
 
                     }
 
-                    
-
                     identityResult = await _userManager.AddToRolesAsync(identityUser, roles);
 
-                    if(identityResult != null && identityResult.Succeeded)
+                    if (identityResult != null && identityResult.Succeeded)
                     {
                         return RedirectToAction("List", "AdminUsers");
                     }
-                    
+
                 }
             }
             return View();

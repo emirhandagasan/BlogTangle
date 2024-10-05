@@ -26,7 +26,7 @@ namespace BlogTangle.Web.Data
                 new IdentityRole
                 {
                     Name = "Admin",
-                    NormalizedName = "Admin".ToUpper(),
+                    NormalizedName = "ADMIN",
                     Id = adminRoleId,
                     ConcurrencyStamp = adminRoleId
                 },
@@ -34,7 +34,7 @@ namespace BlogTangle.Web.Data
                 new IdentityRole
                 {
                     Name = "SuperAdmin",
-                    NormalizedName = "SuperAdmin".ToUpper(),
+                    NormalizedName = "SUPERADMIN",
                     Id = superAdminRoleId,
                     ConcurrencyStamp = superAdminRoleId
                 },
@@ -42,7 +42,7 @@ namespace BlogTangle.Web.Data
                 new IdentityRole
                 {
                     Name = "User",
-                    NormalizedName = "User".ToUpper(),
+                    NormalizedName = "USER",
                     Id = userRoleId,
                     ConcurrencyStamp = userRoleId
                 }
@@ -56,15 +56,15 @@ namespace BlogTangle.Web.Data
             var superAdminId = "c0c2470f-5c64-4bde-870f-dc99e3b838cc";
             var superAdminUser = new IdentityUser
             {
-                UserName = "superadmn@blogtangle.com",
-                Email = "superadmn@blogtangle.com",
-                NormalizedEmail = "superadmn@blogtangle.com".ToUpper(),
-                NormalizedUserName = "superadmn@blogtangle.com".ToUpper(),
+                UserName = "superadmin@blogtangle.com",
+                Email = "superadmin@blogtangle.com",
+                NormalizedEmail = "SUPERADMIN@BLOGTANGLE.COM",
+                NormalizedUserName = "SUPERADMIN@BLOGTANGLE.COM",
                 Id = superAdminId
             };
 
             superAdminUser.PasswordHash = new PasswordHasher<IdentityUser>()
-                .HashPassword(superAdminUser, "Superadmn@123!");
+                .HashPassword(superAdminUser, "Superadmin@123!");
 
             builder.Entity<IdentityUser>().HasData(superAdminUser);
 

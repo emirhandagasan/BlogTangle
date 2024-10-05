@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogTangle.Web.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20240902181145_Creating AuthDb")]
+    [Migration("20241002202212_Creating Auth Db")]
     partial class CreatingAuthDb
     {
         /// <inheritdoc />
@@ -57,14 +57,14 @@ namespace BlogTangle.Web.Migrations.AuthDb
                             Id = "7f3020dc-b045-4975-a7d1-6d513e9d9b08",
                             ConcurrencyStamp = "7f3020dc-b045-4975-a7d1-6d513e9d9b08",
                             Name = "Admin",
-                            NormalizedName = "ADMİN"
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "72edffba-1297-4d66-bd83-5086c2509827",
                             ConcurrencyStamp = "72edffba-1297-4d66-bd83-5086c2509827",
                             Name = "SuperAdmin",
-                            NormalizedName = "SUPERADMİN"
+                            NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
@@ -169,17 +169,17 @@ namespace BlogTangle.Web.Migrations.AuthDb
                         {
                             Id = "c0c2470f-5c64-4bde-870f-dc99e3b838cc",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b75801fd-abba-4b52-b05c-483ab0418ff0",
-                            Email = "superadmn@blogtangle.com",
+                            ConcurrencyStamp = "0337adc5-e7ec-467d-93b7-4d0e88f7dce2",
+                            Email = "superadmin@blogtangle.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "SUPERADMN@BLOGTANGLE.COM",
-                            NormalizedUserName = "SUPERADMN@BLOGTANGLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN2ZBt5mFIwPMEl30bWEx+Y/KU1AjC8BpIY2/HkMqdQzyjaF6NfZmKwKMnUPPxaHfw==",
+                            NormalizedEmail = "SUPERADMIN@BLOGTANGLE.COM",
+                            NormalizedUserName = "SUPERADMIN@BLOGTANGLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC/9uhmlq4B8e9SXolya77BqieGZAVDbn5U/qFANoPzoB26SgVUqNjSW4kdul3rUWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c88066ac-bc3f-430c-bd4a-a99423028ad3",
+                            SecurityStamp = "57065d97-e810-4fab-aa95-de9aceb4a725",
                             TwoFactorEnabled = false,
-                            UserName = "superadmn@blogtangle.com"
+                            UserName = "superadmin@blogtangle.com"
                         });
                 });
 
